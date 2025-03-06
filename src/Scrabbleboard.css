@@ -1,0 +1,92 @@
+.scrabble-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(15, 40px);
+  grid-template-rows: repeat(15, 40px);
+  gap: 1px;
+  background-color: #333;
+  padding: 10px;
+  border: 2px solid #333;
+}
+
+.board-cell {
+  width: 40px;
+  height: 40px;
+  background-color: #e8dcb5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.triple-word {
+  background-color: #ff6b6b;
+}
+
+.double-word {
+  background-color: #ffd93d;
+}
+
+.triple-letter {
+  background-color: #4dabf7;
+}
+
+.double-letter {
+  background-color: #63e6be;
+}
+
+.center-star {
+  background-color: #ffd93d;
+}
+
+.letter-tile {
+  width: 35px;
+  height: 35px;
+  background-color: #f8f0d7;
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.letter {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.points {
+  font-size: 10px;
+}
+
+.rack {
+  display: flex;
+  gap: 5px;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #8b4513;
+  border-radius: 5px;
+}
+
+.rack-tile {
+  cursor: pointer;
+}
+
+.player-score {
+  margin: 5px 0;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+}
+
+.player-score.active {
+  background-color: #4caf50;
+  color: white;
+} 

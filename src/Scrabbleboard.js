@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ScrabbleBoard.css";
+import "./Scrabbleboard.css";
 
 
 
@@ -25,7 +25,12 @@ const getTileClass = (row, col) => {
 };
 
 const ScrabbleBoard = () => {
+  // TODO: Implement rack tile management
+  // eslint-disable-next-line no-unused-vars
   const [rackTiles, setRackTiles] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G']);
+  // TODO: Implement board state management
+  // eslint-disable-next-line no-unused-vars
+  const [board, setBoard] = useState(Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null)));
   
   // Add letter score function
   const getLetterScore = (letter) => {
@@ -37,37 +42,48 @@ const ScrabbleBoard = () => {
     return scores[letter] || 0;
   };
 
+  const renderCell = (row, col) => {
+    const tile = board[row][col];
+    return (
+      <div
+        key={`${row}-${col}`}
+        className={`board-cell ${getTileClass(row, col)} ${row === 7 && col === 7 ? 'center-star' : ''}`}
+      >
+        {tile ? (
+          <div className="letter-tile">
+            <span className="letter">{tile}</span>
+            <span className="points">{getLetterScore(tile)}</span>
+          </div>
+        ) : (
+          row === 7 && col === 7 ? "★" : ""
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="scrabble-game">
       <div className="game-board">
         {[...Array(BOARD_SIZE)].map((_, row) =>
-          [...Array(BOARD_SIZE)].map((_, col) => (
-            <div
-              key={`${row}-${col}`}
-              className={`board-cell ${getTileClass(row, col)} ${row === 7 && col === 7 ? 'center-star' : ''}`}
-            >
-              {row === 7 && col === 7 ? "★" : ""}
-            </div>
-          ))
+          [...Array(BOARD_SIZE)].map((_, col) => renderCell(row, col))
         )}
       </div>
       <div className="score-keeper">
-      <div className="rack">
-  {rackTiles.map((letter, index) => (
-    <div key={index} className="rack-tile">
-      <div className="letter-tile">
-        <span className="letter">{letter}</span>
-        <span className="points">
-          {getLetterScore(letter)}
-        </span>
-      </div>
-    </div>
-  ))}
-</div>
+        <div className="rack">
+          {rackTiles.map((letter, index) => (
+            <div key={index} className="rack-tile">
+              <div className="letter-tile">
+                <span className="letter">{letter}</span>
+                <span className="points">{getLetterScore(letter)}</span>
+              </div>
+            </div>
+          ))}
+        </div>
         <div className="player-score active">Player 1: 0</div>
         <div className="player-score">Player 2: 0</div>
       </div>
     </div>
   );
 };
+
 export default ScrabbleBoard;
