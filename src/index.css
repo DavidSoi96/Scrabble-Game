@@ -96,7 +96,13 @@
   align-items: center;
 }
 
-Version 1 of 2
+.double-letter {
+  background-color: #add8e6;
+  color: black;
+}
 
-
-
+.board-cell.center-star {
+  background-color: #ff6347;
+  color: white;
+  font-size: 24px;
+}
