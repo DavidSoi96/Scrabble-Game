@@ -1,13 +1,102 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.scrabble-game {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 2px;
+  width: 750px;
+  margin-right: 20px;
 }
+
+.board-cell {
+  aspect-ratio: 1/1;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+
+/* Special Square Types */
+.triple-word {
+  background-color: #ff0000;
+  color: white;
+}
+
+.double-word {
+  background-color: #ff6347;
+  color: white;
+}
+
+.triple-letter {
+  background-color: #87cefa;
+  color: black;
+}
+
+.letter-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f4d03f;
+  border-radius: 4px;
+}
+
+.letter-tile .letter {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.letter-tile .points {
+  font-size: 12px;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+
+.score-keeper {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.player-score {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #eee;
+}
+
+.player-score.active {
+  background-color: #e0f7fa;
+  border-color: #00bcd4;
+}
+
+.rack {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.rack-tile {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+Version 1 of 2
+
+
+
