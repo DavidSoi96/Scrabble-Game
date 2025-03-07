@@ -53,7 +53,7 @@ const getLetterScore = (letter) => {
 const ScrabbleBoard = () => {
   // TODO: Implement rack tile management
   // eslint-disable-next-line no-unused-vars
-  const [rackTiles, setRackTiles] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G']);
+  const [rackTiles, setRackTiles] = useState(getRandomLetters(7)); //starts with random letters
   // TODO: Implement board state management
   // eslint-disable-next-line no-unused-vars
   const [board, setBoard] = useState(Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null)));
