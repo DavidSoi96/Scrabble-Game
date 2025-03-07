@@ -53,12 +53,20 @@ const getLetterScore = (letter) => {
 const ScrabbleBoard = () => {
   // TODO: Implement rack tile management
   // eslint-disable-next-line no-unused-vars
-  const [rackTiles, setRackTiles] = useState(getRandomLetters(7)); //starts with random letters
+  const [rackTiles, setRackTiles] = useState(getRandomLetters(7)); //starts with random letters from letter score
   // TODO: Implement board state management
   // eslint-disable-next-line no-unused-vars
   const [board, setBoard] = useState(Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null)));
   
-  
+  //drag and drop
+  const handleDrop = () => {
+    const newBoard = [...board];
+    if (!newBoard[row][col]) {
+      newBoard[row][col] = letter;
+      setBoard(newBoard);
+      setRackTiles(prevTiles => prevTiles.filter(l => l !== letter));
+    }
+  };
 
   const renderCell = (row, col) => {
     const tile = board[row][col];
