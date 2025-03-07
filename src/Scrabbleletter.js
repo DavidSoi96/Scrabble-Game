@@ -1,10 +1,17 @@
 import React from "react";
 import "./Scrabbleboard.css";
 
-const ScrabbleLetter = ({rackTiles}) => {
-    const handleDragStart = (event, letter, index) => 
-        event.dataTransfer.setData("letter", letter);
-    event.dataTransfer.setData("index", index);
+const ScrabbleLetter = ({letter}) => {
+    const handleDragStart = (e) => {
+        e.dataTransfer.setData("letter", letter);
 };
+
+return (
+    <div className="letter-tile" draggable onDragStart={handleDragStart}>
+      <span className="letter">{letter}</span>
+    </div>
+  );
+};
+
 
 export default ScrabbleLetter;

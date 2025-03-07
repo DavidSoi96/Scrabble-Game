@@ -25,6 +25,15 @@ const getTileClass = (row, col) => {
   return "board-cell"; // Default tile
 };
 
+//defining letter pool
+
+const LETTER_POOL = {
+  'A': 9, 'B': 2, 'C': 2, 'D': 4, 'E': 12, 'F': 2, 'G': 3, 'H': 2, 'I': 9,
+  'J': 1, 'K': 1, 'L': 4, 'M': 2, 'N': 6, 'O': 8, 'P': 2, 'Q': 1, 'R': 6,
+  'S': 4, 'T': 6, 'U': 4, 'V': 2, 'W': 2, 'X': 1, 'Y': 2, 'Z': 1
+};
+
+
 const getRandomLetters = (count) => {
   //function for randomizing letters
   const letters = [];
@@ -59,7 +68,7 @@ const ScrabbleBoard = () => {
   const [board, setBoard] = useState(Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null)));
   
   //drag and drop
-  const handleDrop = () => {
+  const handleDrop = (row, col, letter) => {
     const newBoard = [...board];
     if (!newBoard[row][col]) {
       newBoard[row][col] = letter;
@@ -74,6 +83,11 @@ const ScrabbleBoard = () => {
       <div
         key={`${row}-${col}`}
         className={`board-cell ${getTileClass(row, col)} ${row === 7 && col === 7 ? 'center-star' : ''}`}
+        onDrop={(e) => {
+          e.preventDefault();
+          handleDrop(row, col, e.dataTransfer.getData("letter"));
+        }}
+        onDragOver={(e) => e.preventDefault()}
       >
         {tile ? (
           <div className="letter-tile">
