@@ -89,6 +89,7 @@ const ScrabbleBoard = () => {
         }}
         onDragOver={(e) => e.preventDefault()}
       >
+        
         {tile ? (
           <div className="letter-tile">
             <span className="letter">{tile}</span>
@@ -111,7 +112,7 @@ const ScrabbleBoard = () => {
       <div className="score-keeper">
         <div className="rack">
           {rackTiles.map((letter, index) => (
-            <div key={index} className="rack-tile">
+            <div key={index} className="rack-tile" draggable onDragStart={(e) => e.dataTransfer.setData("letter", letter)}>
               <div className="letter-tile">
                 <span className="letter">{letter}</span>
                 <span className="points">{getLetterScore(letter)}</span>
