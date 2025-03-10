@@ -20,7 +20,7 @@ const useScrabbleScore = () => {
     };
 
     // calculating score
-    const calculateScore () => {
+    const calculateScore = (wordTiles) => {
         let score = 0;
         let wordMultiplier = 1; //total score
         wordTiles.forEach(({ letter, tileType }) => {
