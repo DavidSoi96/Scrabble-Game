@@ -8,10 +8,8 @@ import {getLetterScore} from "./Scrabbleboard"
 const useScrabbleScore = () => {
     const [playeerScores, setPlayerScores] = useState();
     const [currentPlayer, setCurrentPlayer] = useState();
-};
 
-
-//updating scores
+    //updating scores
 const updateScore = () => {
     const wordScore = calculateScore();
     setPlayerScores((prevScores) => ({
@@ -26,6 +24,12 @@ const switchTurn = () => {
         prev === "player1" ? "player2" : "player1"
     ));
 };
+
+return {playeerScores, currentPlayer, updateScore};
+
+};
+
+
 
 
 
