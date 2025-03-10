@@ -37,8 +37,8 @@ const useScrabbleScore = () => {
     };
 
     //updating scores
-const updateScore = () => {
-    const wordScore = calculateScore();
+const updateScore = (wordTiles) => {
+    const wordScore = calculateScore(wordTiles);
     setPlayerScores((prevScores) => ({
         ...prevScores, [currentPlayer] : prevScores[currentPlayer] + wordScore,
     }));
