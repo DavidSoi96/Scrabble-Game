@@ -20,6 +20,21 @@ const useScrabbleScore = () => {
     };
 
     // calculating score
+    const calculateScore () => {
+        let score = 0;
+        let wordMultiplier = 1; //total score
+        wordTiles.forEach(({ letter, tileType }) => {
+            let letterScore = getLetterScore(letter);
+            if (tileType === SPECIAL_TILES.tripleLetter) letterScore *= 3;
+            if (tileType === SPECIAL_TILES.doubleLetter) letterScore *= 2;
+      
+            score += letterScore;
+      
+            if (tileType === SPECIAL_TILES.tripleWord) wordMultiplier *= 3;
+            if (tileType === SPECIAL_TILES.doubleWord) wordMultiplier *= 2;
+          });
+        return score * wordMultiplier;
+    };
 
     //updating scores
 const updateScore = () => {
