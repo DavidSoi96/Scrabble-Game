@@ -6,8 +6,20 @@ import {getLetterScore} from "./Scrabbleboard"
 
 
 const useScrabbleScore = () => {
-    const [playeerScores, setPlayerScores] = useState();
-    const [currentPlayer, setCurrentPlayer] = useState();
+    const [playeerScores, setPlayerScores] = useState({
+        player1: 0,
+        player2: 0
+    });
+    const [currentPlayer, setCurrentPlayer] = useState(player1);
+
+    const SPECIAL_TILES = {
+        trippleWord: "tripple-word",
+        doubleWord: "double-word",
+        trippleLetter: "tripple-letter",
+        doubleLetter: "double-letter"
+    };
+
+    // calculating score
 
     //updating scores
 const updateScore = () => {
@@ -28,7 +40,7 @@ const switchTurn = () => {
 return {playeerScores, currentPlayer, updateScore};
 
 };
-
+export default useScrabbleScore;
 
 
 
