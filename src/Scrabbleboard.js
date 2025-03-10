@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ScrabbleLetter from "./Scrabbleletter";
 import "./Scrabbleboard.css";
 
 
@@ -24,22 +25,56 @@ const getTileClass = (row, col) => {
   return "board-cell"; // Default tile
 };
 
+//defining letter pool
+
+const LETTER_POOL = {
+  'A': 9, 'B': 2, 'C': 2, 'D': 4, 'E': 12, 'F': 2, 'G': 3, 'H': 2, 'I': 9,
+  'J': 1, 'K': 1, 'L': 4, 'M': 2, 'N': 6, 'O': 8, 'P': 2, 'Q': 1, 'R': 6,
+  'S': 4, 'T': 6, 'U': 4, 'V': 2, 'W': 2, 'X': 1, 'Y': 2, 'Z': 1
+};
+
+
+const getRandomLetters = (count) => {
+  //function for randomizing letters
+  const letters = [];
+  // store randomly picked letters
+  const availableLetters = {...LETTER_POOL};
+  for (let i = 0; i < count; i++) {
+    const letterArray = Object.keys(availableLetters).filter(letter => availableLetters[letter] > 0);
+    if (letterArray.length === 0) break;
+
+    const randomLetter = letterArray[Math.floor(Math.random() * letterArray.length)];
+    letters.push(randomLetter);
+    availableLetters[randomLetter] -= 1;
+  }
+  return letters;
+};
+
+//moved letterscore function outside
+const getLetterScore = (letter) => {
+  const scores = {
+    'A': 1, 'B': 3, 'C': 3, 'D': 2, 'E': 1, 'F': 4, 'G': 2, 'H': 4, 'I': 1,
+    'J': 8, 'K': 5, 'L': 1, 'M': 3, 'N': 1, 'O': 1, 'P': 3, 'Q': 10, 'R': 1,
+    'S': 1, 'T': 1, 'U': 1, 'V': 4, 'W': 4, 'X': 8, 'Y': 4, 'Z': 10
+  };
+  return scores[letter] || 0;
+};
 const ScrabbleBoard = () => {
   // TODO: Implement rack tile management
   // eslint-disable-next-line no-unused-vars
-  const [rackTiles, setRackTiles] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G']);
+  const [rackTiles, setRackTiles] = useState(getRandomLetters(7)); //starts with random letters from letter score
   // TODO: Implement board state management
   // eslint-disable-next-line no-unused-vars
   const [board, setBoard] = useState(Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null)));
   
-  // Add letter score function
-  const getLetterScore = (letter) => {
-    const scores = {
-      'A': 1, 'B': 3, 'C': 3, 'D': 2, 'E': 1, 'F': 4, 'G': 2, 'H': 4, 'I': 1,
-      'J': 8, 'K': 5, 'L': 1, 'M': 3, 'N': 1, 'O': 1, 'P': 3, 'Q': 10, 'R': 1,
-      'S': 1, 'T': 1, 'U': 1, 'V': 4, 'W': 4, 'X': 8, 'Y': 4, 'Z': 10
-    };
-    return scores[letter] || 0;
+  //drag and drop
+  const handleDrop = (row, col, letter) => {
+    const newBoard = [...board];
+    if (!newBoard[row][col]) {
+      newBoard[row][col] = letter;
+      setBoard(newBoard);
+      setRackTiles(prevTiles => prevTiles.filter(l => l !== letter));
+    }
   };
 
   const renderCell = (row, col) => {
@@ -48,7 +83,13 @@ const ScrabbleBoard = () => {
       <div
         key={`${row}-${col}`}
         className={`board-cell ${getTileClass(row, col)} ${row === 7 && col === 7 ? 'center-star' : ''}`}
+        onDrop={(e) => {
+          e.preventDefault();
+          handleDrop(row, col, e.dataTransfer.getData("letter"));
+        }}
+        onDragOver={(e) => e.preventDefault()}
       >
+        
         {tile ? (
           <div className="letter-tile">
             <span className="letter">{tile}</span>
@@ -71,7 +112,7 @@ const ScrabbleBoard = () => {
       <div className="score-keeper">
         <div className="rack">
           {rackTiles.map((letter, index) => (
-            <div key={index} className="rack-tile">
+            <div key={index} className="rack-tile" draggable onDragStart={(e) => e.dataTransfer.setData("letter", letter)}>
               <div className="letter-tile">
                 <span className="letter">{letter}</span>
                 <span className="points">{getLetterScore(letter)}</span>
